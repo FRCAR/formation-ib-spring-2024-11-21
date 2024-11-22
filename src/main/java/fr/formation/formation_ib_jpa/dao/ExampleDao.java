@@ -31,4 +31,10 @@ public interface ExampleDao extends CrudRepository<Example, Long> {
             "where e.name = :name ")
     int capitalizeName(@Param("name") String name);
 
+    @Query("select e " +
+            " from Example e " +
+            " join fetch e.type t " +
+            " where e.id = :id ")
+    Example findByIdWithType(@Param("id") Long id );
+
 }

@@ -51,6 +51,10 @@ public class ExampleService {
         return exampleDao.rechercheCompliquee(state, name);
     }
 
+    public Example findByIdWithType(Long id) {
+        return exampleDao.findByIdWithType(id);
+    }
+
     @Transactional
     public int capitalizeName(String name) {
         return exampleDao.capitalizeName(name);

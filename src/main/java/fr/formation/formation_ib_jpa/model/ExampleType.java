@@ -29,4 +29,12 @@ public class ExampleType {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return "ExampleType{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

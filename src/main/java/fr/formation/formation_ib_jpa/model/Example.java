@@ -18,7 +18,7 @@ public class Example {
     @Enumerated(EnumType.STRING)
     private ExampleState state;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "EXAMPLE_TYPE_ID")
     private ExampleType type;
 

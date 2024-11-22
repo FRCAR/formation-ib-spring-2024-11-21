@@ -108,6 +108,11 @@ public class ExampleServiceTest {
 
         //Act
         Example exampleSaved = exampleService.save(example);
+        Example exampleLoaded = exampleService.findByIdWithType(exampleSaved.getId());
+
+        System.out.println(exampleLoaded);
+        System.out.println(exampleLoaded.getType());
+
 
         //Assert
         Assertions.assertNotNull(exampleSaved);
