@@ -1,7 +1,9 @@
 package fr.formation.formation_ib_jpa.service;
 
+import fr.formation.formation_ib_jpa.dao.ExampleTypeDao;
 import fr.formation.formation_ib_jpa.model.Example;
 import fr.formation.formation_ib_jpa.model.ExampleState;
+import fr.formation.formation_ib_jpa.model.ExampleType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,9 @@ public class ExampleServiceTest {
 
     @Autowired
     ExampleService exampleService;
+
+    @Autowired
+    ExampleTypeDao exampleTypeDao;
 
     @Test
     public void testSaveValid() {
@@ -86,7 +91,27 @@ public class ExampleServiceTest {
 
         //Assert
         Assertions.assertFalse(examples.isEmpty());
+    }
 
+    @Test
+    public void testSaveWithExampleType() {
+        //Arrange
+        Example example = new Example();
+        example.setValid(Boolean.TRUE);
+        example.setName("Exemple du vendredi");
+
+        ExampleType exampleType = new ExampleType();
+        exampleType.setName("Un type d'exemple comme un autre");
+        ExampleType savedExampleType = exampleTypeDao.save(exampleType);
+
+        example.setType(savedExampleType);
+
+        //Act
+        Example exampleSaved = exampleService.save(example);
+
+        //Assert
+        Assertions.assertNotNull(exampleSaved);
+        Assertions.assertNotNull(exampleSaved.getId());
     }
 
 }

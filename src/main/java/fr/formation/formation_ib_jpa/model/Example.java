@@ -1,6 +1,7 @@
 package fr.formation.formation_ib_jpa.model;
 
 import jakarta.persistence.*;
+import org.springframework.data.jpa.repository.Query;
 
 @Entity
 public class Example {
@@ -16,6 +17,16 @@ public class Example {
 
     @Enumerated(EnumType.STRING)
     private ExampleState state;
+
+    @ManyToOne
+    @JoinColumn(name = "EXAMPLE_TYPE_ID")
+    private ExampleType type;
+
+    //Embedded signifie que les attributs
+    // de address seront persistés dans des colonnes
+    // de la table EXAMPLE
+    @Embedded
+    private Address address;
 
     public Long getId() {
         return id;
@@ -47,6 +58,22 @@ public class Example {
 
     public void setState(ExampleState state) {
         this.state = state;
+    }
+
+    public ExampleType getType() {
+        return type;
+    }
+
+    public void setType(ExampleType type) {
+        this.type = type;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     @Override
