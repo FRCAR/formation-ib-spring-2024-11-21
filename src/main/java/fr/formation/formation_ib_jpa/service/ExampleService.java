@@ -2,6 +2,7 @@ package fr.formation.formation_ib_jpa.service;
 
 import fr.formation.formation_ib_jpa.dao.ExampleDao;
 import fr.formation.formation_ib_jpa.model.Example;
+import fr.formation.formation_ib_jpa.model.ExampleState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,5 +41,18 @@ public class ExampleService {
 
     public List<Example> findByNameStartingWith(String prefix) {
         return exampleDao.findByNameStartingWith(prefix);
+    }
+
+    public List<Example> findByName(String name) {
+        return exampleDao.findByName(name);
+    }
+
+    public List<Example> rechercheCompliquee(ExampleState state, String name) {
+        return exampleDao.rechercheCompliquee(state, name);
+    }
+
+    @Transactional
+    public int capitalizeName(String name) {
+        return exampleDao.capitalizeName(name);
     }
 }

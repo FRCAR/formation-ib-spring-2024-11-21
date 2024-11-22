@@ -14,6 +14,9 @@ public class Example {
 
     private Boolean valid;
 
+    @Enumerated(EnumType.STRING)
+    private ExampleState state;
+
     public Long getId() {
         return id;
     }
@@ -36,6 +39,14 @@ public class Example {
 
     public void setValid(Boolean valid) {
         this.valid = valid;
+    }
+
+    public ExampleState getState() {
+        return state;
+    }
+
+    public void setState(ExampleState state) {
+        this.state = state;
     }
 
     @Override

@@ -1,13 +1,13 @@
 package fr.formation.formation_ib_jpa.service;
 
 import fr.formation.formation_ib_jpa.model.Example;
+import fr.formation.formation_ib_jpa.model.ExampleState;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Collection;
-import java.util.List;
 
 @SpringBootTest
 public class ExampleServiceTest {
@@ -16,7 +16,7 @@ public class ExampleServiceTest {
     ExampleService exampleService;
 
     @Test
-    public void testSaveValid(){
+    public void testSaveValid() {
         //Arrange
         Example example = new Example();
         example.setValid(Boolean.TRUE);
@@ -31,7 +31,7 @@ public class ExampleServiceTest {
     }
 
     @Test
-    public void testSaveInvalid(){
+    public void testSaveInvalid() {
         //Arrange
         Example example = new Example();
         example.setValid(Boolean.FALSE);
@@ -44,7 +44,7 @@ public class ExampleServiceTest {
     }
 
     @Test
-    public void testFindByNameStartingWith(){
+    public void testFindByNameStartingWith() {
         //Arrange
         Example example = new Example();
         example.setValid(Boolean.TRUE);
@@ -55,6 +55,38 @@ public class ExampleServiceTest {
 
         //Assert
         Assertions.assertFalse(examples.isEmpty());
+    }
+
+    @Test
+    public void testRechercheCompliquee() {
+        //Arrange
+        Example example = new Example();
+        example.setValid(Boolean.TRUE);
+        example.setName("Compliqué");
+        example.setState(ExampleState.SUPER);
+        Example exampleSaved = exampleService.save(example);
+        //Act
+        Collection<Example> examples = exampleService.rechercheCompliquee(ExampleState.SUPER, "Compliqué");
+
+        //Assert
+        Assertions.assertFalse(examples.isEmpty());
+    }
+
+    @Test
+    public void testCapitalizeName() {
+        Example example = new Example();
+        example.setValid(Boolean.TRUE);
+        example.setName("bas de casse");
+        Example exampleSaved = exampleService.save(example);
+
+        int numberOfModifiedLines = exampleService.capitalizeName("bas de casse");
+
+        Assertions.assertTrue(numberOfModifiedLines > 0);
+        Collection<Example> examples = exampleService.findByName("BAS DE CASSE");
+
+        //Assert
+        Assertions.assertFalse(examples.isEmpty());
+
     }
 
 }
